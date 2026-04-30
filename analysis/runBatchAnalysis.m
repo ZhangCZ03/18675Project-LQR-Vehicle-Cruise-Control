@@ -1,8 +1,6 @@
 function Tresult = runBatchAnalysis(P, road, dist)
-%RUNBATCHANALYSIS 多场景鲁棒性分析。
-
 disp(' ');
-disp('============= 开始多场景分析 =============');
+disp('Run Batch Analysis');
 
 scenarioList = {};
 

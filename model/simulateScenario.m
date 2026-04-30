@@ -1,5 +1,4 @@
 function out = simulateScenario(P, road, dist, K)
-%SIMULATESCENARIO 用非线性自行车模型运行一次闭环仿真。
 
 if nargin < 4 || isempty(K)
     K = buildLQRController(P);
@@ -9,7 +8,7 @@ lane_bound = P.lane_width/2;
 N = round(P.T/P.dt);
 g = 9.81;
 
-% 初始状态
+% initial state
 vx   = P.vx0;
 vy   = P.vy0;
 psi  = P.psi0;
@@ -20,7 +19,6 @@ ypos = P.y0;
 a_prev = 0;
 ay_prev = 0;
 
-% 数据记录
 time_hist   = zeros(N,1);
 x_hist      = zeros(N,1);
 y_hist      = zeros(N,1);
