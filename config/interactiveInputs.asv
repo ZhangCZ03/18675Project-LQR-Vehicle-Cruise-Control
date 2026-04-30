@@ -1,0 +1,47 @@
+function [P, road, dist] = interactiveInputs(P, road, dist)
+
+P.vx_ref     = inputDefault('objective speed vx_ref (m/s)', P.vx_ref);
+P.vx0        = inputDefault('initial longitude speed vx0 (m/s)', P.vx0);
+P.lane_width = inputDefault('lane_width (m)', P.lane_width);
+P.T          = inputDefault('simulation time T (s)', P.T);
+P.m          = inputDefault('mass m (kg)', P.m);
+
+road.type = inputDefault('Road Type', road.type);
+
+switch road.type
+    case 1
+        disp('Straight');
+    case 2
+        disp('single-sine y = A*sin(2*pi*x/L)');
+    case 3
+        disp('double-sine y = A1*sin(2*pi*x/L1)+A2*sin(2*pi*x/L2)');
+    case 4
+        disp('S-shape');
+    otherwise
+        warning('Invalid input, set to ype 3');
+        road.type = 3;
+end
+
+fprintf('\nSlope input\n');
+dist.gradeType = input('Slope type (0 no slope, 1 Constant grade.) [default=0]: ');
+if isempty(dist.gradeType)
+    dist.gradeType = 0;
+end
+
+while ~ismember(dist.gradeType, [0, 1])
+    disp('invalid，enter 0 or 1。');
+    dist.gradeType = input('slope type (0 no slope, 1 Constant grade) [default=0]: ');
+    if isempty(dist.gradeType)
+        dist.gradeType = 0;
+    end
+end
+
+dist.gradeValue = 0;
+if dist.gradeType == 1
+    tmp = input('常值坡度角 (deg，正=上坡，负=下坡) [默认=4]: ');
+    if isempty(tmp)
+        tmp = 4;
+    end
+    dist.gradeValue = deg2rad(tmp);
+end
+end
